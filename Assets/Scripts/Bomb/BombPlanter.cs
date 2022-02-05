@@ -1,12 +1,15 @@
 ﻿using Unity.Mathematics;
 using UnityEngine;
 
-public class BombPlanter : MonoBehaviour
+namespace stembay.Bomb
 {
-    [SerializeField] private GameObject _bombPrefab;
-
-    public void Plant()
+    public class BombPlanter : MonoBehaviour
     {
-        Instantiate(_bombPrefab, transform.position, quaternion.identity);
+        [SerializeField] private GameObject _bombPrefab;
+
+        public void Plant()
+        {
+            Instantiate(_bombPrefab, transform.position, quaternion.identity);
+        }
     }
 }

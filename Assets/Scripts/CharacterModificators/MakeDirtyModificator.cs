@@ -1,14 +1,18 @@
-﻿using UnityEngine;
+﻿using stembay.Characters;
+using UnityEngine;
 
-public class MakeDirtyModificator : MonoBehaviour, IModificator
+namespace stembay.CharacterModificators
 {
-    public void MakeDirty(ICharacter character)
+    public class MakeDirtyModificator : MonoBehaviour, IModificator
     {
-        if (!character.gameObject.TryGetComponent(out DirtySkin changeSkinToDirty))
+        public void MakeDirty(ICharacter character)
         {
-            return;
-        }
+            if (!character.gameObject.TryGetComponent(out DirtySkin changeSkinToDirty))
+            {
+                return;
+            }
 
-        changeSkinToDirty.MakeDirty();
+            changeSkinToDirty.MakeDirty();
+        }
     }
 }

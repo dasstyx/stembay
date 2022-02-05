@@ -1,4 +1,7 @@
-﻿public class PlayerCharacter : DamagableCharacter, IPlayer
+﻿namespace stembay.Characters
 {
-    public int Hp => _hp;
+    public class PlayerCharacter : DamagableCharacter, IPlayer
+    {
+        public int Hp => _hp;
+    }
 }

@@ -1,27 +1,32 @@
 ﻿using System.Collections;
+using stembay.Bomb;
+using stembay.Characters;
 
-public abstract class PlayerInputBase : MovementInputBase
+namespace stembay.Input
 {
-    protected bool _canControl = true;
-    protected BombPlanter _planter;
-    protected PlayerCharacter _player;
-
-    protected override IEnumerator Start()
+    public abstract class PlayerInputBase : MovementInputBase
     {
-        yield return base.Start();
-        _player = (PlayerCharacter) _character;
-        _player.OnDeath += () => _canControl = false;
+        protected bool _canControl = true;
+        protected BombPlanter _planter;
+        protected PlayerCharacter _player;
 
-        _planter = _movable.GetComponent<BombPlanter>();
-    }
-
-    protected override void FixedUpdate()
-    {
-        if (!_canControl)
+        protected override IEnumerator Start()
         {
-            return;
+            yield return base.Start();
+            _player = (PlayerCharacter) _character;
+            _player.OnDeath += () => _canControl = false;
+
+            _planter = _movable.GetComponent<BombPlanter>();
         }
 
-        base.FixedUpdate();
+        protected override void FixedUpdate()
+        {
+            if (!_canControl)
+            {
+                return;
+            }
+
+            base.FixedUpdate();
+        }
     }
 }

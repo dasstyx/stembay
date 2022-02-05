@@ -2,15 +2,18 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class RestartButton : MonoBehaviour
+namespace stembay.UI
 {
-    private void Start()
+    public class RestartButton : MonoBehaviour
     {
-        GetComponent<Button>().onClick.AddListener(RestartLevel);
-    }
+        private void Start()
+        {
+            GetComponent<Button>().onClick.AddListener(RestartLevel);
+        }
 
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(0);
+        private void RestartLevel()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

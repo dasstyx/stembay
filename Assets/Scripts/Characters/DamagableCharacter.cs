@@ -1,49 +1,52 @@
 ﻿using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Movable))]
-public abstract class DamagableCharacter : MonoBehaviour, IDamagableCharacter
+namespace stembay.Characters
 {
-    [SerializeField] protected int _maxHp;
-    [SerializeField] protected int _hp;
-    protected Movable _movable;
-
-    protected virtual void Start()
+    [RequireComponent(typeof(Movable))]
+    public abstract class DamagableCharacter : MonoBehaviour, IDamagableCharacter
     {
-        _hp = _maxHp;
-        _movable = GetComponent<Movable>();
-        rb = GetComponent<Rigidbody2D>();
-    }
+        [SerializeField] protected int _maxHp;
+        [SerializeField] protected int _hp;
+        protected Movable _movable;
 
-    public event Action OnDeath;
-    public Rigidbody2D rb { get; private set; }
-
-    public void TakeDamage(int value)
-    {
-        _hp -= value;
-
-        if (_hp <= 0)
+        protected virtual void Start()
         {
-            Death();
+            _hp = _maxHp;
+            _movable = GetComponent<Movable>();
+            rb = GetComponent<Rigidbody2D>();
         }
-    }
 
-    public void HealUp(int value, bool ignoreMaxHp = false)
-    {
-        if (ignoreMaxHp || value + _hp <= _maxHp)
+        public event Action OnDeath;
+        public Rigidbody2D rb { get; private set; }
+
+        public void TakeDamage(int value)
         {
-            _hp += value;
+            _hp -= value;
+
+            if (_hp <= 0)
+            {
+                Death();
+            }
         }
-    }
 
-    public Movable GetMovable()
-    {
-        return _movable;
-    }
+        public void HealUp(int value, bool ignoreMaxHp = false)
+        {
+            if (ignoreMaxHp || value + _hp <= _maxHp)
+            {
+                _hp += value;
+            }
+        }
 
-    protected virtual void Death()
-    {
-        OnDeath?.Invoke();
-        Destroy(gameObject);
+        public Movable GetMovable()
+        {
+            return _movable;
+        }
+
+        protected virtual void Death()
+        {
+            OnDeath?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

@@ -1,42 +1,45 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
-public class DirectionalSprites : MonoBehaviour
+namespace stembay
 {
-    [SerializeField] public Sprite _right;
-    [SerializeField] public Sprite _left;
-    [SerializeField] public Sprite _up;
-    [SerializeField] public Sprite _down;
-    private Animator _animator;
-    private Sprite[] _directionSpritesArray;
-
-    private SpriteRenderer _renderer;
-
-    private void Start()
+    [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
+    public class DirectionalSprites : MonoBehaviour
     {
-        _renderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        [SerializeField] public Sprite _right;
+        [SerializeField] public Sprite _left;
+        [SerializeField] public Sprite _up;
+        [SerializeField] public Sprite _down;
+        private Animator _animator;
+        private Sprite[] _directionSpritesArray;
 
-        _directionSpritesArray = new[]
+        private SpriteRenderer _renderer;
+
+        private void Start()
         {
-            _right,
-            _left,
-            _up,
-            _down
-        };
-    }
+            _renderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
 
-    public void Move(int lookDirection)
-    {
-        _renderer.sprite = _directionSpritesArray[lookDirection];
-        StartCoroutine(PlayMoveAnimation(lookDirection));
-    }
+            _directionSpritesArray = new[]
+            {
+                _right,
+                _left,
+                _up,
+                _down
+            };
+        }
 
-    private IEnumerator PlayMoveAnimation(int lookDirection)
-    {
-        // _animator.SetInteger("lookDirection", lookDirection);
-        _animator.SetTrigger("walking");
-        yield return null;
+        public void Move(int lookDirection)
+        {
+            _renderer.sprite = _directionSpritesArray[lookDirection];
+            StartCoroutine(PlayMoveAnimation(lookDirection));
+        }
+
+        private IEnumerator PlayMoveAnimation(int lookDirection)
+        {
+            // _animator.SetInteger("lookDirection", lookDirection);
+            _animator.SetTrigger("walking");
+            yield return null;
+        }
     }
 }

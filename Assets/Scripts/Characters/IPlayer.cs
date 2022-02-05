@@ -1,4 +1,7 @@
-﻿public interface IPlayer : IDamagableCharacter
+﻿namespace stembay.Characters
 {
-    int Hp { get; }
+    public interface IPlayer : IDamagableCharacter
+    {
+        int Hp { get; }
+    }
 }

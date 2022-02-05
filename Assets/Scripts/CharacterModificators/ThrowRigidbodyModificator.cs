@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using stembay.Characters;
+using UnityEngine;
 
-public class ThrowRigidbodyModificator : MonoBehaviour, IModificator
+namespace stembay.CharacterModificators
 {
-    public void Throw(ICharacter character, Vector2 from, float force)
+    public class ThrowRigidbodyModificator : MonoBehaviour, IModificator
     {
-        var vectorForce = (Vector2) character.gameObject.transform.position - from;
-        vectorForce *= force;
-        character.rb.AddForce(vectorForce, ForceMode2D.Impulse);
+        public void Throw(ICharacter character, Vector2 from, float force)
+        {
+            var vectorForce = (Vector2) character.gameObject.transform.position - from;
+            vectorForce *= force;
+            character.rb.AddForce(vectorForce, ForceMode2D.Impulse);
+        }
     }
 }

@@ -2,20 +2,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerPhoneInput : PlayerInputBase
+namespace stembay.Input
 {
-    [SerializeField] private Joystick _joystick;
-    [SerializeField] private Button _bombButton;
-
-    protected override IEnumerator Start()
+    public class PlayerPhoneInput : PlayerInputBase
     {
-        yield return base.Start();
-        _bombButton.onClick.AddListener(_planter.Plant);
-    }
+        [SerializeField] private Joystick _joystick;
+        [SerializeField] private Button _bombButton;
 
-    protected override Vector2 GetInput()
-    {
-        var direction = _joystick.Direction;
-        return direction;
+        protected override IEnumerator Start()
+        {
+            yield return base.Start();
+            _bombButton.onClick.AddListener(_planter.Plant);
+        }
+
+        protected override Vector2 GetInput()
+        {
+            var direction = _joystick.Direction;
+            return direction;
+        }
     }
 }

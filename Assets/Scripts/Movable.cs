@@ -1,60 +1,63 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Movable : MonoBehaviour
+namespace stembay
 {
-    [SerializeField] private DirectionalSprites[] _directionalSprites;
-    [SerializeField] private float _maxSpeed = 0.1f;
-
-
-    private bool _isWalking;
-
-    private Rigidbody2D _rb;
-    public float Speed { get; private set; }
-    public float MaxSpeed => _maxSpeed;
-
-
-    private void Start()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class Movable : MonoBehaviour
     {
-        _rb = GetComponent<Rigidbody2D>();
-        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        [SerializeField] private DirectionalSprites[] _directionalSprites;
+        [SerializeField] private float _maxSpeed = 0.1f;
 
-        Speed = _maxSpeed;
-    }
 
-    public void MoveByDirection(Vector2 direction)
-    {
-        var position = _rb.position + direction * Speed;
-        _rb.MovePosition(position);
+        private bool _isWalking;
 
-        PlayMoveAnimation(direction);
-    }
+        private Rigidbody2D _rb;
+        public float Speed { get; private set; }
+        public float MaxSpeed => _maxSpeed;
 
-    public void ChangeSpeed(float speed)
-    {
-        Speed = speed;
-    }
 
-    private void PlayMoveAnimation(Vector2 direction)
-    {
-        if (direction.Equals(Vector2.zero))
+        private void Start()
         {
-            return;
+            _rb = GetComponent<Rigidbody2D>();
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            Speed = _maxSpeed;
         }
 
-        int lookDirection;
-        if (direction.x != 0)
+        public void MoveByDirection(Vector2 direction)
         {
-            lookDirection = direction.x > 0 ? 0 : 1;
-        }
-        else
-        {
-            lookDirection = direction.y > 0 ? 2 : 3;
+            var position = _rb.position + direction * Speed;
+            _rb.MovePosition(position);
+
+            PlayMoveAnimation(direction);
         }
 
-        foreach (var directionalSprite in _directionalSprites)
+        public void ChangeSpeed(float speed)
         {
-            directionalSprite.Move(lookDirection);
+            Speed = speed;
+        }
+
+        private void PlayMoveAnimation(Vector2 direction)
+        {
+            if (direction.Equals(Vector2.zero))
+            {
+                return;
+            }
+
+            int lookDirection;
+            if (direction.x != 0)
+            {
+                lookDirection = direction.x > 0 ? 0 : 1;
+            }
+            else
+            {
+                lookDirection = direction.y > 0 ? 2 : 3;
+            }
+
+            foreach (var directionalSprite in _directionalSprites)
+            {
+                directionalSprite.Move(lookDirection);
+            }
         }
     }
 }

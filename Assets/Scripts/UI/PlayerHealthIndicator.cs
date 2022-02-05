@@ -1,19 +1,23 @@
-﻿using TMPro;
+﻿using stembay.Characters;
+using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-public class PlayerHealthIndicator : MonoBehaviour
+namespace stembay.UI
 {
-    [SerializeField] private PlayerCharacter _player;
-    private TextMeshProUGUI _text;
-
-    private void Start()
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    public class PlayerHealthIndicator : MonoBehaviour
     {
-        _text = GetComponent<TextMeshProUGUI>();
-    }
+        [SerializeField] private PlayerCharacter _player;
+        private TextMeshProUGUI _text;
 
-    private void Update()
-    {
-        _text.text = _player.Hp.ToString();
+        private void Start()
+        {
+            _text = GetComponent<TextMeshProUGUI>();
+        }
+
+        private void Update()
+        {
+            _text.text = _player.Hp.ToString();
+        }
     }
 }

@@ -1,3 +1,6 @@
-﻿public interface IModificator
+﻿namespace stembay.CharacterModificators
 {
+    public interface IModificator
+    {
+    }
 }

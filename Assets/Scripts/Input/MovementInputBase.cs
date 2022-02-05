@@ -1,36 +1,40 @@
 ﻿using System.Collections;
+using stembay.Characters;
 using UnityEngine;
 
-public abstract class MovementInputBase : MonoBehaviour
+namespace stembay.Input
 {
-    [SerializeField] private GameObject _characterObject;
-    protected ICharacter _character;
-    protected Movable _movable;
-
-    protected virtual IEnumerator Start()
+    public abstract class MovementInputBase : MonoBehaviour
     {
-        yield return null;
+        [SerializeField] private GameObject _characterObject;
+        protected ICharacter _character;
+        protected Movable _movable;
 
-        _character = _characterObject.GetComponent<ICharacter>();
-        _movable = _character.GetMovable();
-        if (_movable == null)
+        protected virtual IEnumerator Start()
         {
-            if (!TryGetComponent(out _movable))
+            yield return null;
+
+            _character = _characterObject.GetComponent<ICharacter>();
+            _movable = _character.GetMovable();
+            if (_movable == null)
             {
-                Debug.LogError("Missing Movable component for the Input script!");
+                if (!TryGetComponent(out _movable))
+                {
+                    Debug.LogError("Missing Movable component for the Input script!");
+                }
             }
         }
-    }
 
-    protected virtual void FixedUpdate()
-    {
-        var direction = GetInput();
-
-        if (!direction.Equals(Vector2.zero))
+        protected virtual void FixedUpdate()
         {
-            _movable.MoveByDirection(direction);
-        }
-    }
+            var direction = GetInput();
 
-    protected abstract Vector2 GetInput();
+            if (!direction.Equals(Vector2.zero))
+            {
+                _movable.MoveByDirection(direction);
+            }
+        }
+
+        protected abstract Vector2 GetInput();
+    }
 }
